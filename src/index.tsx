@@ -1,9 +1,19 @@
 import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet, View, FlatList} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  FlatList,
+  Touchable,
+  TouchableOpacity,
+} from 'react-native';
 import Header from './components/Header';
 import AddItem, {IItem} from './components/AddItem';
 import Item from './components/Item';
-const App = () => {
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {ScreenNames} from './route';
+
+const App = ({navigation}: NativeStackScreenProps<any>) => {
   const [shoppingList, setShoppingList] = useState<IItem[]>([]);
   return (
     <SafeAreaView style={styles.container}>
@@ -17,7 +27,10 @@ const App = () => {
           data={shoppingList}
           keyExtractor={(item, index) => `${item.item}-${index}`}
           renderItem={({item}) => (
-            <Item item={item.item} quantity={item.quantity} />
+            <TouchableOpacity
+              onPress={() => navigation.navigate(ScreenNames.TEST2)}>
+              <Item item={item.item} quantity={item.quantity} />
+            </TouchableOpacity>
           )}
         />
       </View>
