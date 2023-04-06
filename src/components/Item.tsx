@@ -1,6 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {IItem} from './AddItem';
+import {ShopingList} from '../types/shopingListType';
+
+interface TaskItemProps {
+  task: ShopingList;
+}
+
 const Item: React.FC<IItem> = ({item, quantity}) => {
   return (
     <View style={styles.item}>

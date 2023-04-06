@@ -12,9 +12,15 @@ import AddItem, {IItem} from '../components/AddItem';
 import Item from '../components/Item';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ScreenNames} from '../route';
+import {useSelector} from 'react-redux';
+import {RootState} from '../store/index';
+import {ShopingList} from '../types/shopingListType';
 
 const MainScreen = ({navigation}: NativeStackScreenProps<any>) => {
   const [shoppingList, setShoppingList] = useState<IItem[]>([]);
+  const tasks = useSelector((state: RootState) => state.shopingList);
+  console.log(tasks);
+
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Shopping List" />
@@ -23,8 +29,9 @@ const MainScreen = ({navigation}: NativeStackScreenProps<any>) => {
           setShoppingList={setShoppingList}
           shoppingList={shoppingList}
         />
+
         <FlatList
-          data={shoppingList}
+          data={tasks.tasks}
           keyExtractor={(item, index) => `${item.item}-${index}`}
           renderItem={({item}) => (
             <TouchableOpacity

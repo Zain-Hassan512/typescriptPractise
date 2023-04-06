@@ -7,6 +7,9 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
+import {addShopingList} from '../store/slice';
+
 export interface IItem {
   item: string;
   quantity: string;
@@ -18,6 +21,14 @@ interface Props {
 const AddItem: React.FC<Props> = ({shoppingList, setShoppingList}) => {
   const [item, setItem] = useState('');
   const [quantity, setQuantity] = useState('');
+  const dispatch = useDispatch();
+
+  const handleAddTask = () => {
+    dispatch(addShopingList({item, quantity}));
+    setItem('');
+    setQuantity('');
+    console.log('Added in store');
+  };
   const addItem = () => {
     if (!item) {
       Alert.alert('No Item!', 'You need to enter an item');
@@ -52,7 +63,7 @@ const AddItem: React.FC<Props> = ({shoppingList, setShoppingList}) => {
             setQuantity(q);
           }}
         />
-        <TouchableOpacity style={styles.addItemButton} onPress={addItem}>
+        <TouchableOpacity style={styles.addItemButton} onPress={handleAddTask}>
           <Text style={styles.buttonText}>Add Item</Text>
         </TouchableOpacity>
       </View>
